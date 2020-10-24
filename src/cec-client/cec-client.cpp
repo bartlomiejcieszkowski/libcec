@@ -1377,7 +1377,7 @@ int main (int argc, char *argv[])
       input = g_cursesControl.ParseCursesKey();
     }
 #else
-    getline(std::cin, input);
+    getline(std::cin, input, ";");
     std::cin.clear();
 #endif
 
