@@ -875,6 +875,24 @@ bool ProcessCommandLOG(ICECAdapter * UNUSED(parser), const std::string &command,
   return false;
 }
 
+bool ProcessCommandSLEEP(ICECAdapter * UNUSED(parser), const std::string &command, std::string &arguments)
+{
+  if (command == "sleep")
+  {
+    std::string strMs;
+    if (GetWord(arguments, strMs))
+    {
+      int iSleepMs = atoi(strMs.c_str());
+
+      CEvent::Sleep(iSleepMs);
+      PrintToStdOut("sleep for %sms", strMs.c_str());
+      return true;
+    }
+  }
+
+  return false;
+}
+
 bool ProcessCommandSCAN(ICECAdapter *parser, const std::string &command, std::string & UNUSED(arguments))
 {
   if (command == "scan")
@@ -991,6 +1009,7 @@ bool ProcessConsoleCommand(ICECAdapter *parser, std::string &input)
 #if CEC_LIB_VERSION_MAJOR >= 5
    || ProcessCommandSTATS(parser, command, input)
 #endif
+      || ProcessCommandSLEEP(parser, command, input)
       ;
     }
   }
